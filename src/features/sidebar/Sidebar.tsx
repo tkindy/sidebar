@@ -9,13 +9,16 @@ interface SectionModel {
 
 interface HeaderProps {
   title: string;
+  expanded: boolean;
   onClick: () => void;
 }
 
-function Header({ title, onClick }: HeaderProps) {
+function Header({ title, expanded, onClick }: HeaderProps) {
+  const symbol = expanded ? "-" : "+";
+
   return (
     <div className={styles.header} onClick={onClick}>
-      {title}
+      {symbol} {title}
     </div>
   );
 }
@@ -25,10 +28,13 @@ interface SectionProps {
   toggleExpanded: () => void;
 }
 
-function Section({ section: { title }, toggleExpanded }: SectionProps) {
+function Section({
+  section: { title, expanded },
+  toggleExpanded,
+}: SectionProps) {
   return (
     <div>
-      <Header title={title} onClick={toggleExpanded} />
+      <Header title={title} expanded={expanded} onClick={toggleExpanded} />
     </div>
   );
 }
