@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
 
+const sections = [
+  { id: 1, title: "Foo" },
+  { id: 2, title: "Bar" },
+  { id: 3, title: "Baz" },
+];
+
 const headerPadding = 3;
 const headerHeight = 20;
 const sectionBorder = 2;
 const sectionFixedHeight = headerPadding * 2 + headerHeight + sectionBorder * 2;
-
-function getBodyHeight(numSections: number): number {
-  return window.innerHeight - numSections * sectionFixedHeight;
-}
+const bodyHeight = window.innerHeight - sections.length * sectionFixedHeight;
 
 interface SectionModel {
   id: number;
@@ -25,7 +28,7 @@ function Body({ expanded }: BodyProps) {
   }
 
   return (
-    <div className={styles.body} style={{ height: getBodyHeight(3) }}>
+    <div className={styles.body} style={{ height: bodyHeight }}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tellus
       lacus, rutrum vel odio ut, congue condimentum mauris. Maecenas efficitur
       nec odio sed suscipit. Sed et dolor nec lectus sollicitudin mollis quis
@@ -91,11 +94,6 @@ function Section({ section: { title }, expanded, expand }: SectionProps) {
 }
 
 export function Sidebar() {
-  const sections = [
-    { id: 1, title: "Foo" },
-    { id: 2, title: "Bar" },
-    { id: 3, title: "Baz" },
-  ];
   const [expanded, setExpanded] = useState(1);
 
   return (
