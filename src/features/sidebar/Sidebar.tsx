@@ -86,7 +86,7 @@ export function Sidebar() {
   };
 
   return (
-    <div style={{ width: "250px" }}>
+    <div className={styles.sidebar}>
       {sections.map((section) => {
         const { id } = section;
 
