@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./Sidebar.module.css";
 
 interface SectionModel {
   id: number;
@@ -13,13 +14,7 @@ interface HeaderProps {
 
 function Header({ title, onClick }: HeaderProps) {
   return (
-    <div
-      style={{
-        backgroundColor: "gray",
-        border: "2px solid black",
-      }}
-      onClick={onClick}
-    >
+    <div className={styles.header} onClick={onClick}>
       {title}
     </div>
   );
