@@ -1,6 +1,13 @@
+.section {
+  border: 2px solid black;
+}
+
 .header {
   background-color: gray;
-  border: 2px solid black;
   padding: 3px;
   cursor: pointer;
+}
+
+.body {
+  padding: 3px;
 }

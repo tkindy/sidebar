@@ -7,6 +7,32 @@ interface SectionModel {
   expanded: boolean;
 }
 
+interface BodyProps {
+  expanded: boolean;
+}
+
+function Body({ expanded }: BodyProps) {
+  if (!expanded) {
+    return null;
+  }
+
+  return (
+    <div className={styles.body}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin suscipit
+      convallis magna, a convallis ipsum cursus et. Suspendisse blandit ante
+      nulla, eu lacinia ligula egestas nec. Nam justo elit, congue ac dui ac,
+      gravida cursus urna. Praesent eu ex sagittis, maximus lacus ac, ultrices
+      nisl. Praesent lacinia lectus sed bibendum egestas. Vestibulum luctus
+      vestibulum pretium. Aliquam faucibus accumsan neque vel auctor. Aliquam
+      faucibus nisl in turpis porta, at molestie felis pharetra. Suspendisse at
+      faucibus nisi. Nunc ut imperdiet ex. Donec purus massa, aliquam sit amet
+      sagittis vitae, ullamcorper sit amet elit. Sed sem libero, vulputate
+      viverra neque dapibus, ultrices bibendum nulla. Nullam faucibus eu nulla
+      blandit commodo.
+    </div>
+  );
+}
+
 interface HeaderProps {
   title: string;
   expanded: boolean;
@@ -33,8 +59,9 @@ function Section({
   toggleExpanded,
 }: SectionProps) {
   return (
-    <div>
+    <div className={styles.section}>
       <Header title={title} expanded={expanded} onClick={toggleExpanded} />
+      <Body expanded={expanded} />
     </div>
   );
 }
