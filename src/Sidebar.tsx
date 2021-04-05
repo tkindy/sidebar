@@ -91,11 +91,11 @@ function Section({ section: { title }, expanded, expand }: SectionProps) {
 }
 
 export function Sidebar() {
-  const [sections, setSections] = useState<SectionModel[]>([
+  const sections = [
     { id: 1, title: "Foo" },
     { id: 2, title: "Bar" },
     { id: 3, title: "Baz" },
-  ]);
+  ];
   const [expanded, setExpanded] = useState(1);
 
   return (
