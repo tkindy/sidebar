@@ -20,3 +20,7 @@
   padding: 3px;
   overflow-y: auto;
 }
+
+html {
+  overflow-y: hidden;
+}
