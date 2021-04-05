@@ -72,7 +72,11 @@ function Header({ title, expanded, onClick }: HeaderProps) {
   const symbol = expanded ? "-" : "+";
 
   return (
-    <div className={styles.header} onClick={onClick}>
+    <div
+      className={styles.header}
+      style={{ height: headerHeight, padding: headerPadding }}
+      onClick={onClick}
+    >
       {symbol} {title}
     </div>
   );
@@ -86,7 +90,7 @@ interface SectionProps {
 
 function Section({ section: { title }, expanded, expand }: SectionProps) {
   return (
-    <div className={styles.section}>
+    <div className={styles.section} style={{ borderWidth: sectionBorder }}>
       <Header title={title} expanded={expanded} onClick={expand} />
       <Body expanded={expanded} />
     </div>

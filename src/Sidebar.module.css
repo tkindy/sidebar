@@ -7,12 +7,11 @@
 }
 
 .section {
-  border: 2px solid black;
+  border: solid black;
 }
 
 .header {
   background-color: gray;
-  padding: 3px;
   cursor: pointer;
 }
 
