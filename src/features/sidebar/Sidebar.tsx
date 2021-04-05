@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
 
+const headerPadding = 3;
+const headerHeight = 20;
+const sectionBorder = 2;
+const sectionFixedHeight = headerPadding * 2 + headerHeight + sectionBorder * 2;
+
+function getBodyHeight(numSections: number): number {
+  return window.innerHeight - numSections * sectionFixedHeight;
+}
+
 interface SectionModel {
   id: number;
   title: string;
-  expanded: boolean;
 }
 
 interface BodyProps {
@@ -17,18 +25,36 @@ function Body({ expanded }: BodyProps) {
   }
 
   return (
-    <div className={styles.body}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin suscipit
-      convallis magna, a convallis ipsum cursus et. Suspendisse blandit ante
-      nulla, eu lacinia ligula egestas nec. Nam justo elit, congue ac dui ac,
-      gravida cursus urna. Praesent eu ex sagittis, maximus lacus ac, ultrices
-      nisl. Praesent lacinia lectus sed bibendum egestas. Vestibulum luctus
-      vestibulum pretium. Aliquam faucibus accumsan neque vel auctor. Aliquam
-      faucibus nisl in turpis porta, at molestie felis pharetra. Suspendisse at
-      faucibus nisi. Nunc ut imperdiet ex. Donec purus massa, aliquam sit amet
-      sagittis vitae, ullamcorper sit amet elit. Sed sem libero, vulputate
-      viverra neque dapibus, ultrices bibendum nulla. Nullam faucibus eu nulla
-      blandit commodo.
+    <div className={styles.body} style={{ height: getBodyHeight(3) }}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tellus
+      lacus, rutrum vel odio ut, congue condimentum mauris. Maecenas efficitur
+      nec odio sed suscipit. Sed et dolor nec lectus sollicitudin mollis quis
+      sit amet erat. Ut vestibulum ante id mattis placerat. Sed blandit arcu id
+      mauris ullamcorper tempus. Sed posuere, est ut bibendum aliquet, arcu
+      justo cursus elit, sit amet pulvinar ante lorem in libero. Donec
+      pellentesque sapien non magna tempor laoreet. Interdum et malesuada fames
+      ac ante ipsum primis in faucibus. Sed in nisl sit amet diam imperdiet
+      egestas imperdiet et odio. Suspendisse lacinia urna odio, quis condimentum
+      nisl fringilla non. Donec sit amet vestibulum est. Cras vulputate vel
+      velit nec varius. Cras ac magna nec velit hendrerit semper eu ac ante.
+      Mauris hendrerit pulvinar leo quis feugiat. Sed molestie volutpat ante
+      eget pretium. In viverra tincidunt luctus. Donec leo neque, maximus vitae
+      ante non, consequat iaculis nisi. Vestibulum pulvinar risus dignissim
+      nulla imperdiet, in fermentum leo tempus. Sed ultrices tristique elit non
+      condimentum. Cras eleifend nulla nec posuere varius. Quisque a ante magna.
+      Quisque tempor posuere sodales. Nulla odio mauris, eleifend eu leo id,
+      imperdiet dignissim sapien. Integer placerat risus non tortor tempor
+      bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+      Fusce sollicitudin dapibus ante sed feugiat. Integer ornare, erat lacinia
+      iaculis faucibus, ex orci varius magna, eget varius tortor nunc et purus.
+      Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus nec
+      lacinia orci, eget venenatis augue. Nunc mi massa, tristique id augue
+      suscipit, facilisis finibus neque. Ut cursus semper est, vel placerat nibh
+      volutpat nec. Pellentesque vel pellentesque velit, in aliquet augue.
+      Vestibulum pulvinar lorem tortor, interdum tincidunt turpis dignissim
+      eget. Pellentesque habitant morbi tristique senectus et netus et malesuada
+      fames ac turpis egestas. Maecenas in dapibus eros, et eleifend mi. Morbi
+      viverra dolor a nulla tristique vestibulum. Nunc nec lectus ipsum.
     </div>
   );
 }
@@ -51,16 +77,14 @@ function Header({ title, expanded, onClick }: HeaderProps) {
 
 interface SectionProps {
   section: SectionModel;
-  toggleExpanded: () => void;
+  expanded: boolean;
+  expand: () => void;
 }
 
-function Section({
-  section: { title, expanded },
-  toggleExpanded,
-}: SectionProps) {
+function Section({ section: { title }, expanded, expand }: SectionProps) {
   return (
     <div className={styles.section}>
-      <Header title={title} expanded={expanded} onClick={toggleExpanded} />
+      <Header title={title} expanded={expanded} onClick={expand} />
       <Body expanded={expanded} />
     </div>
   );
@@ -68,22 +92,11 @@ function Section({
 
 export function Sidebar() {
   const [sections, setSections] = useState<SectionModel[]>([
-    { id: 1, title: "Foo", expanded: false },
-    { id: 2, title: "Bar", expanded: true },
-    { id: 3, title: "Baz", expanded: false },
+    { id: 1, title: "Foo" },
+    { id: 2, title: "Bar" },
+    { id: 3, title: "Baz" },
   ]);
-
-  const toggleExpanded = (id: number) => {
-    setSections(
-      sections.map((section) => {
-        if (section.id === id) {
-          return { ...section, expanded: !section.expanded };
-        }
-
-        return section;
-      })
-    );
-  };
+  const [expanded, setExpanded] = useState(1);
 
   return (
     <div className={styles.sidebar}>
@@ -94,7 +107,8 @@ export function Sidebar() {
           <Section
             key={id}
             section={section}
-            toggleExpanded={() => toggleExpanded(id)}
+            expanded={id === expanded}
+            expand={() => setExpanded(id)}
           />
         );
       })}
